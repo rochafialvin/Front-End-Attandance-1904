@@ -13,9 +13,9 @@ const Navigation = () => {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
+            component={Link}
+            to="/"
             variant="h6"
-            noWrap
-            component="div"
             sx={{ flexGrow: 1, display: { md: "flex" } }}
           >
             LOGO
@@ -28,7 +28,11 @@ const Navigation = () => {
             >
               Register
             </Button>
-            <Button sx={{ my: 2, color: "white", display: "block" }}>
+            <Button
+              component={Link}
+              to="/login"
+              sx={{ my: 2, color: "white", display: "block" }}
+            >
               Login
             </Button>
           </Box>
