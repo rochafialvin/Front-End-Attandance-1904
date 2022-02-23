@@ -56,7 +56,8 @@ function Login() {
                 borderRadius: 4,
                 boxShadow: 3
             }}>
-                <Box
+                <Typography
+                    variant="h1"
                     sx={{
                         color: "black",
                         textAlign: "center",
@@ -65,8 +66,8 @@ function Login() {
                         paddingTop: 4,
                         marginBottom: 2
                     }}>
-                        Login to your account here!
-                </Box>
+                        Login
+                </Typography>
                 <Container
                     sx={{
                         width: 350,
@@ -89,7 +90,7 @@ function Login() {
                             variant="h5"
                             gutterBottom
                             sx={{
-                                fontSize: 19,
+                                fontSize: 17,
                             }}>
                             NIS
                         </Typography>
@@ -118,7 +119,7 @@ function Login() {
                             variant="h5"
                             gutterBottom
                             sx={{
-                                fontSize: 19,
+                                fontSize: 17,
                             }}>
                             Password
                         </Typography>
