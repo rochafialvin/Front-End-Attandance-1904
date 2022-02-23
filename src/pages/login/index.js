@@ -39,6 +39,10 @@ function Login() {
         onLogin();
     };
 
+    const onInputPress = (e) => {
+        if (e.code === "Enter") onLogin();
+    };
+
     return (
         <Container
             sx={{
