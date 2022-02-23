@@ -8,6 +8,7 @@ import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import { TextField } from "@mui/material";
 
+
 import { loginAction } from "../../store/actions";
 
 function Login() {
@@ -49,17 +50,18 @@ function Login() {
         <Container
             sx={{
                 width: 500,
-                height: 500,
+                height: 350,
                 backgroundColor: "white",
                 marginTop: 10,
-                borderRadius: 4
+                borderRadius: 4,
+                boxShadow: 3
             }}>
                 <Box
                     sx={{
                         color: "black",
                         textAlign: "center",
                         fontWeight: "bold",
-                        fontSize: 20,
+                        fontSize: 25,
 
                         paddingTop: 4,
                     }}>Login to your account here!
@@ -105,9 +107,9 @@ function Login() {
                             justifyContent: "center",
                         }}
                     >
-                        <Button 
+                        <Button
                             variant="contained"
-                            color="success"
+                            color="primary"
                             onClick={onLoginClick}
                         >Login
                         </Button>
