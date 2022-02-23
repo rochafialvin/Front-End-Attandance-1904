@@ -6,10 +6,10 @@ import axios from "../../config/axios";
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
-import { TextField } from "@mui/material";
-
+import { TextField, Typography } from "@mui/material";
 
 import { loginAction } from "../../store/actions";
+import { fontSize } from "@mui/system";
 
 function Login() {
     const nis = useSelector((state) => state.auth.nis);
@@ -50,7 +50,7 @@ function Login() {
         <Container
             sx={{
                 width: 500,
-                height: 350,
+                height: 400,
                 backgroundColor: "white",
                 marginTop: 10,
                 borderRadius: 4,
@@ -62,34 +62,69 @@ function Login() {
                         textAlign: "center",
                         fontWeight: "bold",
                         fontSize: 25,
-
                         paddingTop: 4,
-                    }}>Login to your account here!
+                        marginBottom: 2
+                    }}>
+                        Login to your account here!
                 </Box>
                 <Container
                     sx={{
+                        width: 350,
+
                         display: "flex",
                         flexWrap: "wrap",
                         justifyContent: "center",
                         backgroundColor: "white",
                         paddingTop: 2,
                     }}>
+                    <Container
+                        sx={{
+                            display: "flex",
+                            flexWrap: "wrap",
+                            justifyContent: "start",
+                            marginBottom: -1
+                        }}
+                    >
+                        <Typography
+                            variant="h5"
+                            gutterBottom
+                            sx={{
+                                fontSize: 19,
+                            }}>
+                            NIS
+                        </Typography>
+                    </Container>
                     <TextField
-                        id="outlined-basic"
-                        label="Username"
+                        id="filled-search"
                         variant="outlined"
-                        name="username" // reference ke onLoginClick
+                        name="nis" // reference ke onLoginClick
                         onChange={handleChange}
                         onKeyPress={onInputPress}   
                         sx={{
                             p: 1,
                             m: 1,
+                            width: "100%"
                         }}
                     />
+                    <Container
+                        sx={{
+                            display: "flex",
+                            flexWrap: "wrap",
+                            justifyContent: "start",
+                            marginBottom: -1
+                        }}
+                    >
+                        <Typography
+                            variant="h5"
+                            gutterBottom
+                            sx={{
+                                fontSize: 19,
+                            }}>
+                            Password
+                        </Typography>
+                    </Container>
                     <TextField 
-                        id="outlined-basic"
-                        label="Password"
-                        variant="outlined"
+                        id="outlined-password-input"
                         name="password" // reference ke onLoginClick
                         type="password"
                         onChange={handleChange}
@@ -97,11 +132,12 @@ function Login() {
                         sx={{
                             p: 1,
                             m: 1,
+                            width: "100%"
                         }}
                     />
                     <Container
                         sx={{
-                            marginTop: 3,
+                            marginTop: 1,
                             display: "flex",
                             flexWrap: "wrap",
                             justifyContent: "center",
@@ -111,6 +147,10 @@ function Login() {
                             variant="contained"
                             color="primary"
                             onClick={onLoginClick}
+                            sx={{
+                                width: "100%",
+                                paddingInline: 17
+                            }}
                         >Login
                         </Button>
                     </Container>
