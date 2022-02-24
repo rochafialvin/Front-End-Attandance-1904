@@ -1,19 +1,17 @@
 {
   "users": [
     {
-      "fullName": "Rifki",
-      "username": "rfkih",
-      "email": "email@yahoo.com",
-      "password": "incorrect",
-      "role": "user",
-      "id": 87
+      "name": "nama",
+      "email": "mail@yahoo.com",
+      "password": "password",
+      "id": 92
     },
     {
-      "username": "rfkih",
-      "name": "normandy",
-      "email": "mail@yahoo.com",
+      "name": "rifki",
+      "email": "rfkih",
+      "phone": "088687564",
       "password": "incorrect",
-      "id": 88
+      "id": 93
     }
   ]
 }

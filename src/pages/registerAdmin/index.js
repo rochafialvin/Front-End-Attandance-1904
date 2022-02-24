@@ -6,14 +6,14 @@ import axios from '../../utils/axios'
 
 function RegisterAdmin() {
     const initFormState = {
-        username: "",
-        name: "",
+      fullName: "",
         email: "",
+        phone: "",
         password: "",
       };
     
     const [formState, setFormState] = useState(initFormState);
-    const { username, name, email, password } = formState;
+    const { fullName, email, phone, password } = formState;
 
     const handleChange = (e) => {
         setFormState({ ...formState, [e.target.name]: e.target.value });
@@ -22,16 +22,18 @@ function RegisterAdmin() {
       const onRegisterClick = async () => {
         try {
           const newUser = {
-            username,
-            name,
+            fullName,
             email,
+            phone,
             password,
           };
+          console.log(newUser);
           await axios.post("/users", newUser);
           setFormState(initFormState);
           alert("Register berhasil");
         } catch (error) {
           alert(`${error.message}`);
+          console.log(error.message);
         }
       };
 
@@ -51,30 +53,35 @@ function RegisterAdmin() {
             <div className="card">
               <div className="card-body">
                 <h5 className="font-weight-bold mb-3">Register</h5>
+              
+                <label>Full Name</label>
                 <input
-                  name="username"
+                  name="fullName"
                   onChange={handleChange}
-                  placeholder="Username"
+                  placeholder="Full Name"
                   type="text"
                   className="form-control my-2"
                   
                 />
-                <input
-                  name="name"
-                  onChange={handleChange}
-                  placeholder="Name"
-                  type="text"
-                  className="form-control my-2"
-                  
-                />
+                <label>E-mail</label>
                 <input
                   name="email"
                   onChange={handleChange}
-                  placeholder="Email"
+                  placeholder="E-mail"
                   type="text"
                   className="form-control my-2"
                   
                 />
+                <label>Phone Number</label>
+                <input
+                  name="phone"
+                  onChange={handleChange}
+                  placeholder="Phone Number"
+                  type="text"
+                  className="form-control my-2"
+                  
+                />
+                <label>Password</label>
                 <input
                   name="password"
                   onChange={handleChange}
