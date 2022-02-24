@@ -1,6 +1,7 @@
 
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
 import axios from "../../config/axios";
 
 import Box from '@mui/material/Box';
@@ -11,6 +12,8 @@ import { TextField, Typography } from "@mui/material";
 import { loginAction } from "../../store/actions";
 import { fontSize } from "@mui/system";
 
+// import bcrypt from "bcryptjs";
+
 function Login() {
     const nis = useSelector((state) => state.auth.nis);
     const dispatch = useDispatch();
@@ -18,6 +21,8 @@ function Login() {
         nis: "",
         password: "",
     });
+
+    console.log(formState)
 
     const handleChange = (e) => {
         setFormState({ ...formState, [e.target.name]: e.target.value })
@@ -29,10 +34,15 @@ function Login() {
                 nis: formState.nis,
                 password: formState.password
             });
+            
+            console.log(res.data)
 
             const user = res.data
+            console.log(user)
             const action = loginAction(user)
+            console.log(action)
             dispatch(action)
+            
         } catch (error) {
             console.log({error})
         }
@@ -45,6 +55,16 @@ function Login() {
     const onInputPress = (e) => {
         if (e.code === "Enter") onLogin();
     };
+
+    // const pass = "Password123"
+    // const result = bcrypt.hashSync(pass)
+    // const compare = bcrypt.compareSync(pass, result)
+    // console.log(result);
+    // console.log(compare); 
+
+    if (nis) {
+        return <Navigate to="/" replace />
+    }
 
     return (
         <Container
