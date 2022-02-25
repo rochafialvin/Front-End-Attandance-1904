@@ -9,11 +9,12 @@ function RegisterAdmin() {
       fullName: "",
         email: "",
         phone: "",
+        gender: "",
         password: "",
       };
     
     const [formState, setFormState] = useState(initFormState);
-    const { fullName, email, phone, password } = formState;
+    const { fullName, email, phone,gender, password } = formState;
 
     const handleChange = (e) => {
         setFormState({ ...formState, [e.target.name]: e.target.value });
@@ -25,6 +26,7 @@ function RegisterAdmin() {
             fullName,
             email,
             phone,
+            gender,
             password,
           };
           console.log(newUser);
@@ -32,8 +34,8 @@ function RegisterAdmin() {
           setFormState(initFormState);
           alert("Register berhasil");
         } catch (error) {
-          alert(`${error.message}`);
-          console.log(error.message);
+          alert(`${error.response.data.message}`);
+          console.log({error});
         }
       };
 
@@ -81,6 +83,32 @@ function RegisterAdmin() {
                   className="form-control my-2"
                   
                 />
+                <div className='flex flex-column'>
+                   <p>Select your gender</p>
+                  <select
+                    name="gender"
+                    onChange={handleChange}
+                    className="outline-none w-4/5 text-base border-b-2 border-gray-200 p-2 rounded-md cursor-pointer"
+                  >
+                    <option 
+                      value="other" 
+                      className="bg-white"> 
+                      Select Gender
+                    </option>
+                    <option 
+                      className='text-base border-0 outline-none capitalize bg-white text-black' 
+                      value="Male"
+                    >
+                      Male
+                    </option>
+                    <option 
+                      className='text-base border-0 outline-none capitalize bg-white text-black' 
+                      value="Female"
+                    >
+                      Female
+                    </option>
+                  </select>
+                </div>
                 <label>Password</label>
                 <input
                   name="password"
