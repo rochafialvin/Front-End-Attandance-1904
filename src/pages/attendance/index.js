@@ -1,41 +1,59 @@
 import React from "react";
-
 import "./style.css";
+import axios from "../../config/axios.js";
 import AttendanceList from "./components/attendanceList";
-import picture from "./components/logo192.png";
-import { useState } from "react";
-import { Box, Container, Select } from "@mui/material";
+import PaginationHandler from "./components/paginationHandler";
+
+import { useState, useEffect } from "react";
+import { Box, Container, Select, tablePaginationClasses } from "@mui/material";
 import { Typography } from "@mui/material";
 import { Button } from "@mui/material";
+import picture from "./components/logo192.png";
 
-function AttandanceList() {
+function Attandance() {
   const [attendances, setAttendances] = useState([
     {
-      tanggal: "May 26, 2022",
-      checkIn: "09:10",
-      checkOut: "18:00",
-      status: "On Time",
-    },
-    {
-      tanggal: "May 27, 2022",
-      checkIn: "09:45",
-      checkOut: "18:00",
-      status: "Late",
-    },
-    {
-      tanggal: "May 28, 2022",
-      checkIn: "09:00",
-      checkOut: "18:00",
-      status: "On Time",
+      fullName: "",
+      email: "",
+      tanggal: "",
+      checkIn: "",
+      checkOut: "",
+      id: "",
+      userId: "",
     },
   ]);
+  const [pagination, setPagination] = useState({
+    page: 1,
+    lastPage: 0,
+    itemsPerPage: 5,
+  });
+  const userId = 1;
+
+  const fetchAttendances = async () => {
+    try {
+      const res = await axios.get(`/attandances/${userId}`);
+      const { data } = res;
+      setAttendances(data[0]);
+      setPagination({
+        ...pagination,
+        lastPage: Math.ceil(data[0].length / pagination.itemsPerPage),
+      });
+    } catch (error) {
+      console.log(alert(error.message));
+    }
+  };
+
+  useEffect(() => {
+    fetchAttendances();
+  }, []);
+
   return (
     <Box display="flex">
       <Box className="profile" textAlign="center">
         <Box>
           <img src={picture} alt="LOGO" width="56px"></img>
-          <Typography fontWeight="bold">Bob Lightning</Typography>
-          <Typography>JCWD1902-001</Typography>
+          <Typography fontWeight="bold">{attendances[0].fullName}</Typography>
+          <Typography>{attendances[0].email}</Typography>
         </Box>
         <Box mt="32px">
           <Box mb="20px">Dashboard</Box>
@@ -83,14 +101,15 @@ function AttandanceList() {
               Status
             </Typography>
           </Box>
-          <AttendanceList attendances={attendances} />
-          <Box textAlign="right" paddingTop="120px" color="#DFE0EB">
-            1-5 of 20
-          </Box>
+          <AttendanceList attendances={attendances} pagination={pagination} />
+          <PaginationHandler
+            pagination={pagination}
+            setPagination={setPagination}
+          />
         </Box>
       </Container>
     </Box>
   );
 }
 
-export default AttandanceList;
+export default Attandance;
