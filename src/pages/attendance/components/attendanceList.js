@@ -18,13 +18,13 @@ function AttendanceList(props) {
         <Box
           display="flex"
           borderBottom="1px solid #DFE0EB"
-          padding="12px 0"
+          padding="14px 0"
           key={attendance.id}
         >
-          <Typography>{tanggal}</Typography>
-          <Typography ml="48px">{checkIn}</Typography>
-          <Typography ml="96px">{checkOut}</Typography>
-          <Typography ml="auto" mr="20px" width="65px">
+          <Typography ml="24px">{tanggal}</Typography>
+          <Typography ml="56px">{checkIn}</Typography>
+          <Typography ml="100px">{checkOut}</Typography>
+          <Typography ml="auto" mr="68px" width="65px">
             {attendance.status}
           </Typography>
         </Box>

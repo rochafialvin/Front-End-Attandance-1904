@@ -16,16 +16,16 @@ function PaginationHandler(props) {
   };
 
   return (
-    <Box textAlign="right" paddingTop="120px" color="#9FA2B4" position="static">
+    <Box textAlign="right" paddingTop="80px" color="#9FA2B4" position="static">
       {page} of {lastPage}
       <IconButton
-        disabled={`${page === 1 ? "true" : ""}`}
+        disabled={page === 1 ? true : false}
         onClick={btnPrevPageHandler}
       >
         <ArrowBackIosNewOutlinedIcon fontSize="small" />
       </IconButton>
       <IconButton
-        disabled={`${page === lastPage ? "true" : ""}`}
+        disabled={page === lastPage ? true : false}
         onClick={btnNextPageHandler}
       >
         <ArrowForwardIosOutlinedIcon fontSize="small" />

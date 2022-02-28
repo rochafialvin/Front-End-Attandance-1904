@@ -1,13 +1,16 @@
 import React from "react";
 import "./style.css";
+import { useState, useEffect } from "react";
 import axios from "../../config/axios.js";
+
 import AttendanceList from "./components/attendanceList";
 import PaginationHandler from "./components/paginationHandler";
+import Filter from "./components/filter";
 
-import { useState, useEffect } from "react";
-import { Box, Container, Select, tablePaginationClasses } from "@mui/material";
+import { Box, Container } from "@mui/material";
 import { Typography } from "@mui/material";
 import { Button } from "@mui/material";
+
 import picture from "./components/logo192.png";
 
 function Attandance() {
@@ -27,6 +30,9 @@ function Attandance() {
     lastPage: 0,
     itemsPerPage: 5,
   });
+
+  const [filteredAttendances, setFilteredAttendances] = useState([]);
+  // const [attendancesRender, setAttendancesRender] = useState([]);
   const userId = 1;
 
   const fetchAttendances = async () => {
@@ -34,6 +40,8 @@ function Attandance() {
       const res = await axios.get(`/attandances/${userId}`);
       const { data } = res;
       setAttendances(data[0]);
+      setFilteredAttendances(data[0]);
+      // setAttendancesRender(data[0]);
       setPagination({
         ...pagination,
         lastPage: Math.ceil(data[0].length / pagination.itemsPerPage),
@@ -46,6 +54,19 @@ function Attandance() {
   useEffect(() => {
     fetchAttendances();
   }, []);
+  const filterAttendances = (formData) => {
+    const result = attendances.filter((attendance) => {
+      return attendance.status.includes(formData.status);
+    });
+
+    setPagination({
+      ...pagination,
+      page: 1,
+      lastPage: Math.ceil(result.length / pagination.itemsPerPage),
+    });
+    setFilteredAttendances(result);
+    // setAttendancesRender(result);
+  };
 
   return (
     <Box display="flex">
@@ -56,9 +77,9 @@ function Attandance() {
           <Typography>{attendances[0].email}</Typography>
         </Box>
         <Box mt="32px">
-          <Box mb="20px">Dashboard</Box>
-          <Box mb="20px">Attendance List</Box>
-          <Box> My Profile</Box>
+          <Typography mb="20px">Dashboard</Typography>
+          <Typography mb="20px">Attendance List</Typography>
+          <Typography> My Profile</Typography>
         </Box>
       </Box>
       <Container maxWidth="xl">
@@ -68,7 +89,9 @@ function Attandance() {
           alignItems="center"
           marginTop="5px"
         >
-          <Box fontSize="20px">Attendance List</Box>
+          <Typography fontSize="26px" fontWeight="bold">
+            Attendance List
+          </Typography>
           <Button variant="outlined" color="error">
             Logout
           </Button>
@@ -82,10 +105,16 @@ function Attandance() {
           }}
         >
           <Box display="flex" justifyContent="space-between">
-            <Typography>Your Attendance</Typography>
-            <Box>
-              <Select></Select>
-              <Select></Select>
+            <Typography
+              fontSize="24px"
+              fontWeight="bold"
+              padding="8px 0 0 20px"
+            >
+              Your Attendance
+            </Typography>
+            <Box display="flex">
+              {/* <Select></Select> */}
+              <Filter filterAttendances={filterAttendances} />
             </Box>
           </Box>
           <Box
@@ -93,15 +122,26 @@ function Attandance() {
             display="flex"
             mt="32px"
             borderBottom="1px solid #DFE0EB"
+            color="#9FA2B4"
           >
-            <Typography>Tanggal</Typography>
-            <Typography ml="72px"> Check In</Typography>
-            <Typography ml="72px">Check Out</Typography>
-            <Typography ml="auto" mr="40px">
+            <Typography ml="24px" fontSize="18px" paddingBottom="8px">
+              Tanggal
+            </Typography>
+            <Typography ml="72px" fontSize="18px" paddingBottom="8px">
+              {" "}
+              Check In
+            </Typography>
+            <Typography ml="72px" fontSize="18px" paddingBottom="8px">
+              Check Out
+            </Typography>
+            <Typography ml="auto" mr="80px" fontSize="18px" paddingBottom="8px">
               Status
             </Typography>
           </Box>
-          <AttendanceList attendances={attendances} pagination={pagination} />
+          <AttendanceList
+            attendances={filteredAttendances}
+            pagination={pagination}
+          />
           <PaginationHandler
             pagination={pagination}
             setPagination={setPagination}
