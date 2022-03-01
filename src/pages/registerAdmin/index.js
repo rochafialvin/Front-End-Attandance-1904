@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useState } from "react";
 import axios from '../../utils/axios'
@@ -19,6 +19,8 @@ function RegisterAdmin() {
     const handleChange = (e) => {
         setFormState({ ...formState, [e.target.name]: e.target.value });
       };
+
+    
     
       const onRegisterClick = async () => {
         try {
@@ -33,10 +35,16 @@ function RegisterAdmin() {
           await axios.post("/users", newUser);
           setFormState(initFormState);
           alert("Register berhasil");
+
+          window.location.reload(true);
+          
         } catch (error) {
           alert(`${error.response.data.message}`);
           console.log({error});
+          
         }
+
+        
       };
 
 
