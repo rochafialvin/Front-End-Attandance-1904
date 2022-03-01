@@ -4,9 +4,7 @@ const init = {
     berhasil: "lanjut gan"
 };
 
-
 const authReducer = (state = init, action) => {
-    // console.log(state)
     switch(action.type) {
         case "LOGIN_SUCCESS":
             return {

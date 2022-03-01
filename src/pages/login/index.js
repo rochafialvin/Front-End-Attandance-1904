@@ -12,8 +12,6 @@ import { TextField, Typography } from "@mui/material";
 import { loginAction } from "../../store/actions";
 import { fontSize } from "@mui/system";
 
-// import bcrypt from "bcryptjs";
-
 function Login() {
     const nis = useSelector((state) => state.auth.nis);
     const dispatch = useDispatch();
@@ -21,8 +19,6 @@ function Login() {
         nis: "",
         password: "",
     });
-
-    console.log(formState)
 
     const handleChange = (e) => {
         setFormState({ ...formState, [e.target.name]: e.target.value })
@@ -34,13 +30,11 @@ function Login() {
                 nis: formState.nis,
                 password: formState.password
             });
-            
-            console.log(res.data)
 
-            const user = res.data
-            console.log(user)
+            const user = res.data.user[0]
+
             const action = loginAction(user)
-            console.log(action)
+
             dispatch(action)
             
         } catch (error) {
@@ -55,12 +49,6 @@ function Login() {
     const onInputPress = (e) => {
         if (e.code === "Enter") onLogin();
     };
-
-    // const pass = "Password123"
-    // const result = bcrypt.hashSync(pass)
-    // const compare = bcrypt.compareSync(pass, result)
-    // console.log(result);
-    // console.log(compare); 
 
     if (nis) {
         return <Navigate to="/" replace />
