@@ -10,8 +10,6 @@ import ManageAttendances from "./components/manageAttendances";
 
 import { Box, Container } from "@mui/material";
 import { Typography } from "@mui/material";
-import { Button } from "@mui/material";
-
 import picture from "./components/logo192.png";
 
 function Attendance() {
@@ -20,17 +18,7 @@ function Attendance() {
   // });
   const userId = 1;
 
-  const [attendances, setAttendances] = useState([
-    {
-      fullName: "",
-      email: "",
-      tanggal: "",
-      checkIn: "",
-      checkOut: "",
-      id: "",
-      userId: "",
-    },
-  ]);
+  const [attendances, setAttendances] = useState([]);
   const [pagination, setPagination] = useState({
     page: 1,
     lastPage: 0,
@@ -62,7 +50,7 @@ function Attendance() {
 
   const filterAttendances = (formData) => {
     const result = attendances.filter((attendance) => {
-      return attendance.status.includes(formData.status);
+      return attendance.status === formData.status;
     });
 
     setPagination({
@@ -92,8 +80,8 @@ function Attendance() {
       <Box className="profile" textAlign="center">
         <Box>
           <img src={picture} alt="LOGO" width="56px"></img>
-          <Typography fontWeight="bold">{attendances[0].fullName}</Typography>
-          <Typography>{attendances[0].email}</Typography>
+          <Typography fontWeight="bold">fullName</Typography>
+          <Typography>NIS</Typography>
         </Box>
         <Box mt="32px">
           <Typography mb="20px">Dashboard</Typography>
@@ -102,18 +90,10 @@ function Attendance() {
         </Box>
       </Box>
       <Container maxWidth="xl">
-        <Box
-          display="flex"
-          justifyContent="space-between"
-          alignItems="center"
-          marginTop="5px"
-        >
+        <Box alignItems="center" marginTop="5px">
           <Typography fontSize="26px" fontWeight="bold">
             Attendance List
           </Typography>
-          <Button variant="outlined" color="error">
-            Logout
-          </Button>
         </Box>
         <Box
           sx={{
@@ -132,7 +112,6 @@ function Attendance() {
               Your Attendance
             </Typography>
             <Box display="flex">
-              {/* <Select></Select> */}
               <ManageAttendances
                 filterAttendances={filterAttendances}
                 sortAttendances={sortAttendances}
