@@ -2,10 +2,11 @@ import React from "react";
 import "./style.css";
 import { useState, useEffect } from "react";
 import axios from "../../config/axios.js";
+import { useSelector } from "react-redux";
 
 import AttendanceList from "./components/attendanceList";
 import PaginationHandler from "./components/paginationHandler";
-import Filter from "./components/filter";
+import ManageAttendances from "./components/manageAttendances";
 
 import { Box, Container } from "@mui/material";
 import { Typography } from "@mui/material";
@@ -13,7 +14,12 @@ import { Button } from "@mui/material";
 
 import picture from "./components/logo192.png";
 
-function Attandance() {
+function Attendance() {
+  // const { id } = useSelector((state) => {
+  //   return state.auth;
+  // });
+  const userId = 1;
+
   const [attendances, setAttendances] = useState([
     {
       fullName: "",
@@ -32,8 +38,7 @@ function Attandance() {
   });
 
   const [filteredAttendances, setFilteredAttendances] = useState([]);
-  // const [attendancesRender, setAttendancesRender] = useState([]);
-  const userId = 1;
+  const [sortedAttendances, setSortedAttendances] = useState([]);
 
   const fetchAttendances = async () => {
     try {
@@ -41,7 +46,7 @@ function Attandance() {
       const { data } = res;
       setAttendances(data[0]);
       setFilteredAttendances(data[0]);
-      // setAttendancesRender(data[0]);
+      setSortedAttendances(data[0]);
       setPagination({
         ...pagination,
         lastPage: Math.ceil(data[0].length / pagination.itemsPerPage),
@@ -54,6 +59,7 @@ function Attandance() {
   useEffect(() => {
     fetchAttendances();
   }, []);
+
   const filterAttendances = (formData) => {
     const result = attendances.filter((attendance) => {
       return attendance.status.includes(formData.status);
@@ -65,7 +71,20 @@ function Attandance() {
       lastPage: Math.ceil(result.length / pagination.itemsPerPage),
     });
     setFilteredAttendances(result);
-    // setAttendancesRender(result);
+    setSortedAttendances(result);
+  };
+  const sortAttendances = (value) => {
+    const data = [...filteredAttendances];
+
+    switch (value) {
+      case "a-z":
+        data.sort((a, b) => new Date(b.tanggal) - new Date(a.tanggal));
+        break;
+      case "z-a":
+        data.sort((a, b) => new Date(a.tanggal) - new Date(b.tanggal));
+        break;
+    }
+    setSortedAttendances(data);
   };
 
   return (
@@ -114,7 +133,10 @@ function Attandance() {
             </Typography>
             <Box display="flex">
               {/* <Select></Select> */}
-              <Filter filterAttendances={filterAttendances} />
+              <ManageAttendances
+                filterAttendances={filterAttendances}
+                sortAttendances={sortAttendances}
+              />
             </Box>
           </Box>
           <Box
@@ -139,7 +161,7 @@ function Attandance() {
             </Typography>
           </Box>
           <AttendanceList
-            attendances={filteredAttendances}
+            attendances={sortedAttendances}
             pagination={pagination}
           />
           <PaginationHandler
@@ -152,4 +174,4 @@ function Attandance() {
   );
 }
 
-export default Attandance;
+export default Attendance;
