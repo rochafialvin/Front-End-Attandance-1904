@@ -1,6 +1,4 @@
 export const loginAction = (loginData) => {
-
-    console.log(loginData)
   
     localStorage.setItem("userData", JSON.stringify(loginData));
   
