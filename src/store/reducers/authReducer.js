@@ -1,7 +1,6 @@
 const init = {
     id: 0,
-    nis: "",
-    berhasil: "lanjut gan"
+    nis: ""
 };
 
 const authReducer = (state = init, action) => {
