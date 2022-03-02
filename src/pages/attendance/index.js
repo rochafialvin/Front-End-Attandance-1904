@@ -10,7 +10,6 @@ import ManageAttendances from "./components/manageAttendances";
 
 import { Box, Container } from "@mui/material";
 import { Typography } from "@mui/material";
-import picture from "./components/logo192.png";
 
 function Attendance() {
   const { id } = useSelector((state) => {
@@ -30,7 +29,7 @@ function Attendance() {
 
   const fetchAttendances = async () => {
     try {
-      const res = await axios.get(`/attandances/${userId}`);
+      const res = await axios.get(`/attendances/${userId}`);
       const { data } = res;
       setAttendances(data[0]);
       setFilteredAttendances(data[0]);
@@ -50,7 +49,7 @@ function Attendance() {
 
   const filterAttendances = (formData) => {
     const result = attendances.filter((attendance) => {
-      return attendance.status === formData.status;
+      return attendance.status.includes(formData.status);
     });
 
     setPagination({
@@ -76,79 +75,61 @@ function Attendance() {
   };
 
   return (
-    <Box display="flex">
-      <Box className="profile" textAlign="center">
-        <Box>
-          <img src={picture} alt="LOGO" width="56px"></img>
-          <Typography fontWeight="bold">fullName</Typography>
-          <Typography>NIS</Typography>
-        </Box>
-        <Box mt="32px">
-          <Typography mb="20px">Dashboard</Typography>
-          <Typography mb="20px">Attendance List</Typography>
-          <Typography> My Profile</Typography>
-        </Box>
+    <Container maxWidth="xl">
+      <Box alignItems="center" marginTop="5px">
+        <Typography fontSize="26px" fontWeight="bold">
+          Attendance List
+        </Typography>
       </Box>
-      <Container maxWidth="xl">
-        <Box alignItems="center" marginTop="5px">
-          <Typography fontSize="26px" fontWeight="bold">
-            Attendance List
+      <Box
+        sx={{
+          border: "1px solid #DFE0EB",
+          borderRadius: "5px",
+          marginTop: "10px",
+          padding: "20px 25px",
+        }}
+      >
+        <Box display="flex" justifyContent="space-between">
+          <Typography fontSize="24px" fontWeight="bold" padding="8px 0 0 20px">
+            Your Attendance
           </Typography>
+          <Box display="flex">
+            <ManageAttendances
+              filterAttendances={filterAttendances}
+              sortAttendances={sortAttendances}
+            />
+          </Box>
         </Box>
         <Box
-          sx={{
-            border: "1px solid #DFE0EB",
-            borderRadius: "5px",
-            marginTop: "10px",
-            padding: "20px 25px",
-          }}
+          className="column"
+          display="flex"
+          mt="32px"
+          borderBottom="1px solid #DFE0EB"
+          color="#9FA2B4"
         >
-          <Box display="flex" justifyContent="space-between">
-            <Typography
-              fontSize="24px"
-              fontWeight="bold"
-              padding="8px 0 0 20px"
-            >
-              Your Attendance
-            </Typography>
-            <Box display="flex">
-              <ManageAttendances
-                filterAttendances={filterAttendances}
-                sortAttendances={sortAttendances}
-              />
-            </Box>
-          </Box>
-          <Box
-            className="column"
-            display="flex"
-            mt="32px"
-            borderBottom="1px solid #DFE0EB"
-            color="#9FA2B4"
-          >
-            <Typography ml="24px" fontSize="18px" paddingBottom="8px">
-              Tanggal
-            </Typography>
-            <Typography ml="72px" fontSize="18px" paddingBottom="8px">
-              Check In
-            </Typography>
-            <Typography ml="72px" fontSize="18px" paddingBottom="8px">
-              Check Out
-            </Typography>
-            <Typography ml="auto" mr="80px" fontSize="18px" paddingBottom="8px">
-              Status
-            </Typography>
-          </Box>
-          <AttendanceList
-            attendances={sortedAttendances}
-            pagination={pagination}
-          />
-          <PaginationHandler
-            pagination={pagination}
-            setPagination={setPagination}
-          />
+          <Typography ml="24px" fontSize="18px" paddingBottom="8px">
+            Tanggal
+          </Typography>
+          <Typography ml="72px" fontSize="18px" paddingBottom="8px">
+            Check In
+          </Typography>
+          <Typography ml="72px" fontSize="18px" paddingBottom="8px">
+            Check Out
+          </Typography>
+          <Typography ml="auto" mr="80px" fontSize="18px" paddingBottom="8px">
+            Status
+          </Typography>
         </Box>
-      </Container>
-    </Box>
+        <AttendanceList
+          attendances={sortedAttendances}
+          pagination={pagination}
+        />
+        <PaginationHandler
+          pagination={pagination}
+          setPagination={setPagination}
+        />
+      </Box>
+    </Container>
   );
 }
 
