@@ -12,12 +12,12 @@ import { logoutAction } from "../store/actions";
 const Navigation = () => {
   const dispatch = useDispatch();
 
-  const { nis } = useSelector((state) => {
-    return state.auth
+  const { nis, id } = useSelector((state) => {
+    return state.auth;
   });
 
   const onLogoutClick = () => {
-    dispatch(logoutAction())
+    dispatch(logoutAction());
   };
 
   return (
@@ -36,6 +36,13 @@ const Navigation = () => {
           {nis ? (
             <>
               <Box sx={{ flexGrow: 1, display: { md: "flex" } }}>
+                <Button
+                  component={Link}
+                  to={`/attendances/${id}`}
+                  sx={{ my: 2, color: "white", display: "block" }}
+                >
+                  My Attendances
+                </Button>
                 <Button
                   component={Link}
                   to="/"
@@ -63,8 +70,8 @@ const Navigation = () => {
                 >
                   Login
                 </Button>
-            </Box>
-          </>
+              </Box>
+            </>
           )}
         </Toolbar>
       </Container>
