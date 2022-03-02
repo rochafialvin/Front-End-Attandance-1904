@@ -13,10 +13,10 @@ import { Typography } from "@mui/material";
 import picture from "./components/logo192.png";
 
 function Attendance() {
-  // const { id } = useSelector((state) => {
-  //   return state.auth;
-  // });
-  const userId = 1;
+  const { id } = useSelector((state) => {
+    return state.auth;
+  });
+  const userId = id;
 
   const [attendances, setAttendances] = useState([]);
   const [pagination, setPagination] = useState({
@@ -129,7 +129,6 @@ function Attendance() {
               Tanggal
             </Typography>
             <Typography ml="72px" fontSize="18px" paddingBottom="8px">
-              {" "}
               Check In
             </Typography>
             <Typography ml="72px" fontSize="18px" paddingBottom="8px">
