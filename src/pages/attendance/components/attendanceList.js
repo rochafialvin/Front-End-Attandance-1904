@@ -11,8 +11,8 @@ function AttendanceList(props) {
     const slicedAttendances = attendances.slice(startIndex, endIndex);
 
     return slicedAttendances.map((attendance) => {
-      const momentTanggal = moment(attendance.createdAt).format("DD MMM YYYY");
-      const tanggal = momentTanggal;
+      const momentDate = moment(attendance.createdAt).format("DD MMM YYYY");
+      const date = momentDate;
       const checkIn = attendance.checkIn.substr(0, 5);
       const checkOut = attendance.checkOut.substr(0, 5);
       return (
@@ -22,7 +22,7 @@ function AttendanceList(props) {
           padding="14px 0"
           key={attendance.id}
         >
-          <Typography ml="24px">{tanggal}</Typography>
+          <Typography ml="24px">{date}</Typography>
           <Typography ml="48px">{checkIn}</Typography>
           <Typography ml="100px">{checkOut}</Typography>
           <Typography ml="auto" mr="68px" width="65px">
