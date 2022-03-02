@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
 import Navigation from "./components/Navigation";
 import Home from "./pages/home";
 import RegisterStudent from "./pages/registerStudents";
+import Attendance from "./pages/attendance";
 import Login from "./pages/login";
 import { useDispatch } from "react-redux";
 
-import { keepLoginAction } from './store/actions/index'
+import { keepLoginAction } from "./store/actions/index";
 
 function App() {
   const [isStorageChecked, setIsStorageChecked] = useState(false);
@@ -17,7 +17,7 @@ function App() {
     const usersLocalStorage = localStorage.getItem("userData");
 
     if (usersLocalStorage) {
-      const userData = JSON.parse(usersLocalStorage)
+      const userData = JSON.parse(usersLocalStorage);
       const { id, nis } = userData;
       dispatch(keepLoginAction({ id, nis }));
     }
@@ -34,13 +34,13 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="register-student" element={<RegisterStudent />} />
             <Route path="login" element={<Login />} />
+            <Route path="/attendances/:userId" element={<Attendance />} />
           </Routes>
         </Router>
       </div>
-    )
+    );
   } else {
-    return <h1>Loading...</h1>
+    return <h1>Loading...</h1>;
   }
-};
-
+}
 export default App;
